@@ -1,16 +1,16 @@
-name: Super-Linter
-
-on: push
-
+on:
+  workflow_call:
+    inputs:
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'john-doe'
+        required: false
+        type: string
+  
 jobs:
-  super-lint:
-  	name: Lint_code_base
-	runs-on: ubuntu-latest
-	steps:
-		- name: Checkout code
-	 uses: actions/checkout@v2
-		  - name: Run Super-Linter
-		    uses: github/super-linter@v3
-		    env:
-			    DEFAULT_BRANCH: main
-			    GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  print-username:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
